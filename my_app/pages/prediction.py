@@ -16,7 +16,8 @@ st.title("🤖 Lung Cancer Prediction System")
 @st.cache_data
 def load_data():
     try:
-        return pd.read_csv(r"C:\Users\Nullvoid\Desktop\cancer\survey lung cancer.csv")
+        csv_file = "../survey lung cancer.csv"
+        return pd.read_csv(csv_file)
     except Exception as e:
         st.error(f"Cannot load dataset: {e}")
         return None

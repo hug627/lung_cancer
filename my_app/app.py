@@ -27,30 +27,30 @@ st.subheader("2️⃣ Main Features Used")
 st.write("""
 The model uses **15 key features** to predict lung cancer risk:
 
-**Demographic Information:**
-1. **Gender** - Patient's biological sex
-2. **Age** - Patient's age in years
+Demographic Information:
+1. Gender - Patient's biological sex
+2. Age - Patient's age in years
 
-**Lifestyle Factors:**
-3. **Smoking** - Smoking history
-4. **Alcohol Consuming** - Alcohol consumption habits
-5. **Peer Pressure** - Social influence on health behaviors
+Lifestyle Factors:
+3. Smoking - Smoking history
+4. Alcohol Consuming- Alcohol consumption habits
+5. Peer Pressure - Social influence on health behaviors
 
-**Physical Symptoms:**
-6. **Yellow Fingers** - Discoloration of fingers (often smoking-related)
-7. **Anxiety** - Presence of anxiety symptoms
-8. **Fatigue** - Persistent tiredness or exhaustion
-9. **Allergy** - Allergic reactions or sensitivities
-10. **Wheezing** - Whistling sound when breathing
-11. **Shortness of Breath** - Difficulty breathing
-12. **Swallowing Difficulty** - Trouble swallowing (dysphagia)
-13. **Chest Pain** - Pain or discomfort in chest area
+Physical Symptoms:
+6. Yellow Fingers - Discoloration of fingers (often smoking-related)
+7. Anxiety - Presence of anxiety symptoms
+8. Fatigue - Persistent tiredness or exhaustion
+9. Allergy - Allergic reactions or sensitivities
+10. Wheezing - Whistling sound when breathing
+11. Shortness of Breath - Difficulty breathing
+12. Swallowing Difficulty - Trouble swallowing (dysphagia)
+13. Chest Pain - Pain or discomfort in chest area
 
-**Medical History:**
-14. **Chronic Disease** - Presence of other chronic conditions
+Medical History:
+14. Chronic Disease - Presence of other chronic conditions
 
-**Target Variable:**
-15. **Lung Cancer** - Diagnosis outcome (Yes/No)
+Target Variable:
+15. Lung Cancer - Diagnosis outcome (Yes/No)
 
 These features are analyzed to predict whether a patient has lung cancer.
 """)

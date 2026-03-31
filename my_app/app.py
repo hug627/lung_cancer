@@ -25,16 +25,18 @@ This project uses the **Survey Lung Cancer Dataset**, which contains patient inf
 
 st.subheader("2️⃣ Main Features Used")
 st.write("""
-The model uses **15 key features** to predict lung cancer risk:
+The model uses 15 key features to predict lung cancer risk:
 
 Demographic Information:
 1. Gender - Patient's biological sex
 2. Age - Patient's age in years
 
+
 Lifestyle Factors:
 3. Smoking - Smoking history
 4. Alcohol Consuming- Alcohol consumption habits
 5. Peer Pressure - Social influence on health behaviors
+
 
 Physical Symptoms:
 6. Yellow Fingers - Discoloration of fingers (often smoking-related)
@@ -46,16 +48,20 @@ Physical Symptoms:
 12. Swallowing Difficulty - Trouble swallowing (dysphagia)
 13. Chest Pain - Pain or discomfort in chest area
 
+
 Medical History:
 14. Chronic Disease - Presence of other chronic conditions
 
+
 Target Variable:
 15. Lung Cancer - Diagnosis outcome (Yes/No)
+
 
 These features are analyzed to predict whether a patient has lung cancer.
 """)
 
 st.subheader("3️⃣ Understanding the Context")
+
 st.write("""
 Lung cancer is one of the leading causes of cancer-related deaths worldwide. Early detection 
 is crucial for improving survival rates and treatment outcomes. However, many cases are diagnosed 

@@ -1,8 +1,6 @@
-pandas
-numpy
-matplotlib
-seaborn 
-scikit-learn
-joblib 
-streamlit>=1.35.0
-altair>=5.0.0
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.0.0
+scikit-learn>=1.3.0
+joblib>=1.3.0
+numpy>=1.24.0

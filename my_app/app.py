@@ -577,7 +577,8 @@ st.markdown("""
 </div>
 <div class="about-box">
   <strong>ℹ️ About This Project</strong><br>
-  Built by <strong>Mercy Njoki</strong> as a portfolio project demonstrating end-to-end ML deployment — 
+  Built by <strong>Mercy Mwova
+  </strong> as a portfolio project demonstrating end-to-end ML deployment — 
   from data science (Python, scikit-learn) to production API (FastAPI, Hugging Face Spaces) 
   to live frontend (Streamlit Cloud). 
   <a href="https://github.com/hug627/lung_cancer" style="color:#5dade2;">View on GitHub →</a>

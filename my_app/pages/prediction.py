@@ -37,14 +37,13 @@ def check_api():
         return False
 
 # ===============================
-# LOAD DATA (for sidebar info + validation)
+# LOAD DATA (for sidebar + validation)
 # ===============================
 @st.cache_data
 def load_data():
     try:
-        csv_file = "my_app/survey lung cancer.csv"
-        return pd.read_csv(csv_file)
-    except Exception as e:
+        return pd.read_csv("my_app/survey lung cancer.csv")
+    except Exception:
         return None
 
 data = load_data()
@@ -68,7 +67,7 @@ if api_online:
         info = requests.get(f"{API_URL}/model/info", timeout=5).json()
         st.sidebar.write(f"**Model:** {info.get('model_type', 'Logistic Regression')}")
         st.sidebar.write(f"**CV Accuracy:** {info.get('cross_validation_accuracy', '91.9%')}")
-        st.sidebar.write(f"**Features:** {info.get('num_features', 15)}")
+        st.sidebar.write(f"**Features:** {info.get('num_features', 13)}")
     except:
         pass
 else:
@@ -85,11 +84,7 @@ if data is not None:
 
 st.sidebar.markdown("---")
 st.sidebar.header("Encoding Settings")
-encoding_type = st.sidebar.radio(
-    "Select encoding (check your dataset):",
-    ["YES=2, NO=1"],
-    index=0
-)
+st.sidebar.radio("Select encoding:", ["YES=2, NO=1"], index=0)
 
 # ===============================
 # API STATUS BANNER
@@ -100,24 +95,22 @@ else:
     st.error(f"❌ API not reachable at `{API_URL}` — predictions will fail.")
 
 # ===============================
-# INPUT FORM — same layout as your original
+# INPUT FORM — 13 features only (matches your trained model)
 # ===============================
 st.header("🧪 Enter Patient Information")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    gender = st.selectbox("Gender", ["Male", "Female"], key="gender")
-    age = st.slider("Age", min_value=1, max_value=100, value=45, key="age")
     smoking = st.selectbox("Smoking", ["No", "Yes"], key="smoking")
     yellow_fingers = st.selectbox("Yellow Fingers", ["No", "Yes"], key="yellow")
     anxiety = st.selectbox("Anxiety", ["No", "Yes"], key="anxiety")
     peer_pressure = st.selectbox("Peer Pressure", ["No", "Yes"], key="peer")
     chronic_disease = st.selectbox("Chronic Disease", ["No", "Yes"], key="chronic")
-
-with col2:
     fatigue = st.selectbox("Fatigue", ["No", "Yes"], key="fatigue")
     allergy = st.selectbox("Allergy", ["No", "Yes"], key="allergy")
+
+with col2:
     wheezing = st.selectbox("Wheezing", ["No", "Yes"], key="wheezing")
     alcohol = st.selectbox("Alcohol Consuming", ["No", "Yes"], key="alcohol")
     coughing = st.selectbox("Coughing", ["No", "Yes"], key="coughing")
@@ -126,13 +119,11 @@ with col2:
     chest_pain = st.selectbox("Chest Pain", ["No", "Yes"], key="chest")
 
 # ===============================
-# BUILD PAYLOAD
+# BUILD PAYLOAD — 13 features, no GENDER/AGE
 # ===============================
 binary = lambda x: 2 if x == "Yes" else 1
 
 payload = {
-    "GENDER": 1 if gender == "Male" else 0,
-    "AGE": age,
     "SMOKING": binary(smoking),
     "YELLOW_FINGERS": binary(yellow_fingers),
     "ANXIETY": binary(anxiety),
@@ -150,13 +141,13 @@ payload = {
 
 # Show input — same as your original expander
 with st.expander("View Input Data"):
-    input_df = pd.DataFrame([{k: v for k, v in payload.items() if k not in ("GENDER", "AGE")}])
+    input_df = pd.DataFrame([payload])
     st.dataframe(input_df)
     st.write(f"Shape: {input_df.shape}")
     st.write(f"Columns: {input_df.columns.tolist()}")
 
 # ===============================
-# PREDICTION — calls API instead of local model
+# PREDICTION
 # ===============================
 if st.button("🔍 Predict", type="primary"):
     if not api_online:
@@ -178,18 +169,15 @@ if st.button("🔍 Predict", type="primary"):
             prob_low = result["probability_low_risk"]
             confidence = result["model_confidence"]
 
-            # Raw prediction — same as your original
             st.write(f"**Raw prediction value:** `{result['prediction_code']}` → `{prediction}`")
-
-            # Probabilities — same col_a / col_b layout
             st.write(f"**Probabilities:** High Risk={prob_high:.4f}, Low Risk={prob_low:.4f}")
+
             col_a, col_b = st.columns(2)
             with col_a:
                 st.metric("Class 0 (No Cancer)", f"{prob_low:.1%}")
             with col_b:
                 st.metric("Class 1 (Cancer)", f"{prob_high:.1%}")
 
-            # Result banner — same as your original
             if prediction == "HIGH RISK":
                 st.error("### ⚠️ HIGH RISK: Lung Cancer Detected")
             else:
@@ -197,15 +185,13 @@ if st.button("🔍 Predict", type="primary"):
 
             st.info("⚠️ This is for educational purposes only. Consult a healthcare professional.")
 
-            # Model Validation — same as your original section
+            # Model Validation
             if data is not None:
                 st.write("---")
                 st.subheader("Model Validation")
 
                 def make_sample_payload(row):
                     return {
-                        "GENDER": 1 if str(row.get("GENDER", "M")) == "M" else 0,
-                        "AGE": int(row.get("AGE", 50)),
                         "SMOKING": int(row.get("SMOKING", 1)),
                         "YELLOW_FINGERS": int(row.get("YELLOW_FINGERS", 1)),
                         "ANXIETY": int(row.get("ANXIETY", 1)),
